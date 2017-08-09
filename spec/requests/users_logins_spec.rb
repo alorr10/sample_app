@@ -20,6 +20,9 @@ RSpec.describe "UserLogin", type: :request do
                                            password:
                                            user.password } }
       expect(response).to have_http_status(302)
+      delete logout_path
+      follow_redirect!
+      assert_select "a[href=?]", login_path
     end
   end
 end
