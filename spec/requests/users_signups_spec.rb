@@ -22,6 +22,7 @@ RSpec.describe "UsersSignups", type: :request do
                                          password:              user.password,
                                          password_confirmation: user.password } }
       expect(before_count).to_not equal User.count
+      #expect(is_logged_in?).to be true
     end
   end
 end

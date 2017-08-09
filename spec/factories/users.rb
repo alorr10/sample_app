@@ -2,6 +2,6 @@ FactoryGirl.define do
   factory :user do
     email { Faker::Internet.email }
     name  { Faker::Name.name }
-    password { Faker::Internet.password }
+    password { User.digest(Faker::Internet.password) }
   end
 end
