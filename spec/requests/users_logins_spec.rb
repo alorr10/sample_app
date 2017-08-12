@@ -19,10 +19,9 @@ RSpec.describe "UserLogin", type: :request do
       post login_path, params: {session: { email: user.email,
                                            password:
                                            user.password } }
-      expect(response).to have_http_status(302)
+      expect(response).to redirect_to user_path(user)
       delete logout_path
-      follow_redirect!
-      assert_select "a[href=?]", login_path
+      expect(response).to redirect_to root_path
     end
   end
 end

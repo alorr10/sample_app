@@ -4,15 +4,14 @@ require 'rails_helper'
 
 RSpec.describe "SiteLayouts", type: :request do
   describe "GET Home" do
-    it "works! (now write some real specs)" do
+    it "has all the required links" do
       get root_path
       expect(response).to have_http_status(200)
-      assert_template 'static_pages/home'
-      assert_select "a[href=?]", root_path, count: 2
-      assert_select "a[href=?]", help_path
-      assert_select "a[href=?]", about_path
-      assert_select "a[href=?]", contact_path
-      assert_select "a[href=?]", signup_path
+      expect(response).to render_template root_path
+      expect(response.body).to include(help_path)
+      expect(response.body).to include(about_path)
+      expect(response.body).to include(contact_path)
+      expect(response.body).to include(root_path)
     end
   end
 end
