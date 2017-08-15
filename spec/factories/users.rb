@@ -3,9 +3,16 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     name  { Faker::Name.name }
     password { User.digest(Faker::Internet.password) }
-  end
+    activated { true }
+    activated_at { Time.zone.now }
 
-  trait :admin do
-    admin true
+    trait :admin do
+      admin true
+    end
+
+    trait :not_activated do
+      activated { false }
+      activated_at { nil }
+    end
   end
 end
