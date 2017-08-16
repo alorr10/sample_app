@@ -14,5 +14,9 @@ FactoryGirl.define do
       activated { false }
       activated_at { nil }
     end
+
+    trait :reset_token do
+      reset_token { User.new_token }
+    end
   end
 end
