@@ -18,5 +18,12 @@ FactoryGirl.define do
     trait :reset_token do
       reset_token { User.new_token }
     end
+
+    factory :user_with_microposts do
+      after(:create) do |user|
+        create_list :micropost, 50, user: user
+        create(:micropost, :most_recent, user: user)
+      end
+    end
   end
 end

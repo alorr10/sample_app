@@ -1,5 +1,5 @@
-User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
+User.create!(name:  "Alec Lorraine",
+             email: "aleclorraine10@gmail.com",
              password:              "foobar",
              password_confirmation: "foobar",
              admin: true,
@@ -9,11 +9,17 @@ User.create!(name:  "Example User",
 99.times do |n|
   name  = Faker::Name.name
   email = Faker::Internet.email
-  password = "password"
+  password = Faker::Internet.password(6)
   User.create!(name:  name,
                email: email,
                password:              password,
                password_confirmation: password,
                activated: true,
                activated_at: Time.zone.now)
+end
+
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::HarryPotter.quote[0..139]
+  users.each { |user| user.microposts.create!(content: content, created_at: Faker::Date.between(8.days.ago, Date.today)) }
 end
