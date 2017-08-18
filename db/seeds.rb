@@ -20,6 +20,10 @@ end
 
 users = User.order(:created_at).take(6)
 50.times do
-  content = Faker::HarryPotter.quote[0..139]
+  if rand < 0.50
+    content = Faker::HarryPotter.quote[0..139]
+  else
+    content = Faker::ChuckNorris.fact[0..139]
+  end
   users.each { |user| user.microposts.create!(content: content, created_at: Faker::Date.between(8.days.ago, Date.today)) }
 end
