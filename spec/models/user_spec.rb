@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { FactoryGirl.create(:user) }
+  let(:user2) { FactoryGirl.create(:user) }
 
   it "is valid" do
     expect(user).to be_valid
@@ -75,7 +76,29 @@ RSpec.describe User, type: :model do
   it "expects authenticated? should return false for a user with nil digest" do
     expect(user.authenticated?(:remember, '')).to eq false
   end
+
+  it "follows and unfollows a user" do
+    expect(user.following?(user2)).to be false
+
+    user.follow!(user2)
+    expect(user.following?(user2)).to be true
+    expect(user2.followers.include?(user)).to be true
+
+    user.unfollow!(user2)
+    expect(user.following?(user2)).to be false
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
 
 
 

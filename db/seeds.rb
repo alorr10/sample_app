@@ -25,5 +25,13 @@ users = User.order(:created_at).take(6)
   else
     content = Faker::ChuckNorris.fact[0..139]
   end
-  users.each { |user| user.microposts.create!(content: content, created_at: Faker::Date.between(8.days.ago, Date.today)) }
+  users.each { |user| user.microposts.create!(content: content, created_at: Faker::Date.between(500.days.ago, Date.today)) }
 end
+
+# Following relationships
+users = User.all
+user  = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow!(followed) }
+followers.each { |follower| follower.follow!(user) }
